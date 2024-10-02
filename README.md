@@ -6,19 +6,21 @@ The project implements UVM for verifying the clk_gen module. UVM is an industry-
 
 # # Key Components of the UVM Testbench:
 - # Transaction:
-- Defines the operation (reset or random baud rate change) and the baud rate value.
-Randomized to test the design with different baud rate settings.
+- Keeps track of all the input and output present in the DUT.
+- Randomized to test the design with different baud rate settings.
 - # Driver:
-- Drives signals to the clk_gen DUT (Device Under Test), sending either reset or baud rate change commands.
+- Drives signals to the clk_gen DUT (Design Under Test), in this case sending either reset or baud rate change commands.
 - # Monitor:
-- Observes the DUT's behavior by tracking the generated tx_clk signal and measuring the clock period.
+- Observes the DUT's behavior by tracking the generated signals and measuring the clock period, It also forwards the data to scoreboard.
 - # Scoreboard:
-- Compares the observed clock period with expected values based on the baud rate to determine if the design is functioning correctly.
+- Compares the data from monitor with expected values based on the baud rate to determine if the design is functioning correctly.
 - # Sequences:
-- Two sequences (reset_clk and variable_baud) generate test scenarios, including resets and random baud rate changes, to verify the design's robustness.
+- Two sequences (reset_clk and variable_baud) generate test scenarios, including reset and random baud rate cases, to verify the design's robustness.
+- It is basically the combination of transactions to verify a specific test case.
 - # Agent:
-- Manages the driver, monitor, and sequencer components, encapsulating their functionalities into a reusable unit.
+- Encapsulates Driver, Sequencer, and Monitor while managing the connection of Driver and Sequecer TLM ports.
 - # Environment:
+- Encapsulates Agent, Scoreboard, and connection of analysis port of monitor and scoreboard.
 - The UVM environment (env) integrates the agent and the scoreboard. It connects the monitor's output to the scoreboard for checking the correctness of the results.
 - # Test:
-- The top-level UVM test class, which executes the sequences to verify the clock generator behavior.
+- The top-level UVM test class, which executes the sequences to verify the clock generator behavior and also encapsulates Environment.
