@@ -25,8 +25,6 @@ Randomized to test the design with different baud rate settings.
 
 - Manages the driver, monitor, and sequencer components, encapsulating their functionalities into a reusable unit.
 - # Environment:
-
 - The UVM environment (env) integrates the agent and the scoreboard. It connects the monitor's output to the scoreboard for checking the correctness of the results.
 - # Test:
-
 - The top-level UVM test class, which executes the sequences to verify the clock generator behavior.
